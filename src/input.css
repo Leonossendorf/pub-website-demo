@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Schriften lokal eingebunden (Inter, SIL Open Font License) – keine Verbindung zu Google */
+@font-face { font-family: 'Inter'; font-weight: 400; font-style: normal; font-display: swap; src: url('../fonts/Inter-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 500; font-style: normal; font-display: swap; src: url('../fonts/Inter-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 600; font-style: normal; font-display: swap; src: url('../fonts/Inter-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 700; font-style: normal; font-display: swap; src: url('../fonts/Inter-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Inter Display'; font-weight: 800; font-style: normal; font-display: swap; src: url('../fonts/InterDisplay-ExtraBold.woff2') format('woff2'); }
+
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  body { background: #120d0a; color: #eadfd2; }
+}
+
+@layer components {
+  .hero-bg {
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 30%, rgba(212,160,58,.28), transparent 60%),
+      radial-gradient(ellipse 50% 60% at 15% 80%, rgba(31,111,69,.30), transparent 60%),
+      linear-gradient(180deg, #1a1310 0%, #120d0a 100%);
+  }
+  .grain::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .07; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  .foam { animation: float 6s ease-in-out infinite; }
+  .today-row { background: rgba(212,160,58,.10); }
+  .field {
+    @apply w-full rounded-xl border border-white/10 bg-pub-950 px-4 py-3 text-white outline-none transition placeholder:text-stone-600 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/30;
+  }
+  .legal h2 { @apply mt-10 text-2xl font-display font-extrabold text-white; }
+  .legal h3 { @apply mt-6 text-lg font-bold text-gold-300; }
+  .legal p, .legal li { @apply leading-relaxed text-stone-300; }
+  .legal p { @apply mt-3; }
+  .legal ul { @apply mt-3 list-disc space-y-1 pl-6; }
+  .legal a { @apply text-gold-400 underline underline-offset-2 hover:text-gold-300; }
+}
+
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .foam { animation: none; }
+  html { scroll-behavior: auto; }
+}

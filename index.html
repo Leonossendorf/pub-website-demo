@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Musterpub – Design-Demo einer Irish-Pub-Website</title>
+<meta name="description" content="Design-Demo einer Irish-Pub-Website mit einem erfundenen Betrieb. Kein echter Pub, alle Angaben sind Beispieldaten.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#120d0a">
+<link rel="preload" href="assets/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="font-sans antialiased">
+
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-gold-500 focus:px-4 focus:py-2 focus:font-semibold focus:text-pub-950">Zum Inhalt springen</a>
+
+<!-- Header -->
+<header id="top" class="fixed inset-x-0 top-0 z-50 transition-colors duration-300" data-header>
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
+    <a href="#top" class="font-display text-xl font-extrabold tracking-tight text-white" aria-label="Musterpub – Startseite">
+      Muster<span class="text-gold-400">pub</span>
+    </a>
+    <nav class="hidden items-center gap-8 text-sm font-medium md:flex" aria-label="Hauptnavigation">
+      <a class="text-stone-200 transition hover:text-gold-400" href="#top">Home</a>
+      <a class="text-stone-200 transition hover:text-gold-400" href="#zeiten">Öffnungszeiten</a>
+      <a class="text-stone-200 transition hover:text-gold-400" href="#kontakt">Kontakt</a>
+      <a href="#reservieren" class="rounded-full bg-gold-500 px-5 py-2 font-semibold text-pub-950 transition hover:bg-gold-400">Tisch reservieren</a>
+    </nav>
+    <button id="menuBtn" type="button" class="rounded-lg p-2 text-stone-100 md:hidden" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileNav">
+      <svg id="iconOpen" class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg id="iconClose" class="hidden h-7 w-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <nav id="mobileNav" class="hidden border-t border-white/10 bg-pub-950/95 px-6 pb-6 pt-2 backdrop-blur md:hidden" aria-label="Mobile Navigation">
+    <div class="flex flex-col gap-1 text-lg">
+      <a class="m-link rounded-lg px-3 py-3 hover:bg-white/5" href="#top">Home</a>
+      <a class="m-link rounded-lg px-3 py-3 hover:bg-white/5" href="#zeiten">Öffnungszeiten</a>
+      <a class="m-link rounded-lg px-3 py-3 hover:bg-white/5" href="#kontakt">Kontakt</a>
+      <a class="m-link mt-3 rounded-full bg-gold-500 px-5 py-3 text-center font-semibold text-pub-950" href="#reservieren">Tisch reservieren</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+<!-- Hero -->
+<section class="hero-bg grain relative flex min-h-[100svh] items-center overflow-hidden pt-24">
+  <div class="mx-auto grid max-w-6xl items-center gap-12 px-4 pb-20 sm:px-6 lg:grid-cols-2">
+    <div class="relative z-10">
+      <p class="mb-5 inline-flex items-center gap-2 rounded-full border border-gold-500/40 bg-gold-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-gold-300">
+        <span class="h-2 w-2 rounded-full bg-clover-500"></span> Irish Pub · Musterstadt
+      </p>
+      <h1 class="font-display text-4xl font-extrabold leading-[1.05] text-white sm:text-5xl lg:text-6xl">
+        Dein Irish Pub in Musterstadt – <span class="text-gold-400">Guinness, Livemusik</span> &amp; beste Stimmung
+      </h1>
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-stone-300">
+        Ein frisch gezapftes Pint, gute Gespräche und Stimmung bis spät in die Nacht. Bei Musterpub bist du Stammgast, bevor du dein erstes Glas leer hast.
+      </p>
+      <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+        <a href="#reservieren" class="rounded-full bg-gold-500 px-7 py-3.5 text-center font-semibold text-pub-950 shadow-lg shadow-gold-500/20 transition hover:-translate-y-0.5 hover:bg-gold-400">Tisch reservieren</a>
+        <a href="#zeiten" class="rounded-full border border-white/25 px-7 py-3.5 text-center font-semibold text-white transition hover:-translate-y-0.5 hover:border-gold-400 hover:text-gold-300">Öffnungszeiten &amp; Anfahrt</a>
+      </div>
+      <div class="mt-10 flex items-center gap-3 text-sm" aria-live="polite">
+        <span id="statusDot" class="h-3 w-3 rounded-full bg-stone-500"></span>
+        <span id="statusText" class="text-stone-300">Öffnungsstatus wird geladen …</span>
+      </div>
+    </div>
+
+    <!-- Pint-Illustration -->
+    <div class="relative z-10 mx-auto w-full max-w-sm lg:max-w-md" aria-hidden="true">
+      <div class="absolute -inset-10 rounded-full bg-gold-500/15 blur-3xl"></div>
+      <svg viewBox="0 0 300 380" class="foam relative w-full drop-shadow-2xl">
+        <defs>
+          <linearGradient id="glass" x1="0" x2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".18"/><stop offset=".5" stop-color="#ffffff" stop-opacity=".04"/><stop offset="1" stop-color="#ffffff" stop-opacity=".16"/></linearGradient>
+          <linearGradient id="stout" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1a12"/><stop offset="1" stop-color="#0d0705"/></linearGradient>
+          <linearGradient id="head" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbf3e2"/><stop offset="1" stop-color="#e6d5b3"/></linearGradient>
+        </defs>
+        <path d="M60 60 L240 60 L214 340 Q212 358 194 358 L106 358 Q88 358 86 340 Z" fill="url(#stout)"/>
+        <path d="M60 60 L240 60 L232 135 L68 135 Z" fill="url(#head)"/>
+        <ellipse cx="150" cy="60" rx="90" ry="14" fill="#fbf3e2"/>
+        <circle cx="105" cy="52" r="20" fill="#fbf3e2"/><circle cx="150" cy="44" r="24" fill="#fbf3e2"/><circle cx="196" cy="52" r="20" fill="#fbf3e2"/>
+        <path d="M60 60 L240 60 L214 340 Q212 358 194 358 L106 358 Q88 358 86 340 Z" fill="url(#glass)" stroke="#ffffff" stroke-opacity=".25" stroke-width="2"/>
+        <g fill="#e8bd5c" opacity=".55"><circle cx="120" cy="220" r="3"/><circle cx="165" cy="260" r="2.5"/><circle cx="140" cy="300" r="2"/><circle cx="180" cy="200" r="2"/></g>
+        <g transform="translate(150 245)"><circle r="34" fill="#1f6f45" stroke="#e8bd5c" stroke-width="3"/>
+          <text y="9" text-anchor="middle" font-family="Inter Display, Inter, sans-serif" font-weight="800" font-size="26" fill="#f3d68a">P</text></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- Willkommen -->
+<section class="bg-pub-900 py-16 sm:py-20">
+  <div class="reveal mx-auto max-w-4xl px-4 text-center sm:px-6">
+    <p class="text-sm font-semibold uppercase tracking-widest text-gold-400">Céad Míle Fáilte</p>
+    <h2 class="mt-3 font-display text-3xl font-extrabold text-white sm:text-4xl">Herzlich willkommen im Musterpub</h2>
+    <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-stone-300">
+      Hundertausend Willkommensgrüße, so heißt es auf Irisch. Komm vorbei, such dir einen Platz an der Theke oder am Tisch und fühl dich wie zu Hause. Für Gruppen und besondere Abende kannst du bequem online einen Tisch reservieren.
+    </p>
+  </div>
+</section>
+
+<!-- Öffnungszeiten & Standort -->
+<section id="zeiten" class="bg-pub-950 py-20 sm:py-28">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <p class="text-sm font-semibold uppercase tracking-widest text-gold-400">Besuch uns</p>
+      <h2 class="mt-3 font-display text-3xl font-extrabold text-white sm:text-4xl">Öffnungszeiten &amp; Standort</h2>
+    </div>
+    <div class="mt-12 grid gap-6 lg:grid-cols-2">
+      <div class="reveal rounded-2xl border border-white/10 bg-pub-800 p-6 sm:p-8">
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg font-bold text-white">Öffnungszeiten</h3>
+          <span id="statusBadge" class="rounded-full bg-stone-600/40 px-3 py-1 text-xs font-semibold text-stone-300">…</span>
+        </div>
+        <table class="mt-5 w-full text-left text-sm sm:text-base">
+          <caption class="sr-only">Wöchentliche Öffnungszeiten</caption>
+          <tbody id="hoursBody" class="divide-y divide-white/10">
+            <tr><th scope="row" class="py-3.5 pl-3 pr-4 font-medium text-stone-200">Montag – Donnerstag</th><td class="py-3.5 pr-3 text-right text-stone-300">18:00 – 23:00 Uhr</td></tr>
+            <tr><th scope="row" class="py-3.5 pl-3 pr-4 font-medium text-stone-200">Freitag &amp; Samstag</th><td class="py-3.5 pr-3 text-right text-stone-300">17:00 – 01:00 Uhr</td></tr>
+            <tr><th scope="row" class="py-3.5 pl-3 pr-4 font-medium text-stone-200">Sonntag</th><td class="py-3.5 pr-3 text-right text-stone-300">14:00 – 22:00 Uhr</td></tr>
+          </tbody>
+        </table>
+        <p class="mt-5 text-xs text-stone-500">An Feiertagen und bei besonderen Anlässen können die Zeiten abweichen.</p>
+      </div>
+      <div class="reveal flex flex-col gap-6">
+        <div id="kontakt" class="rounded-2xl border border-white/10 bg-pub-800 p-6 sm:p-8">
+          <h3 class="text-lg font-bold text-white">Adresse &amp; Kontakt</h3>
+          <address class="mt-4 not-italic leading-relaxed text-stone-300">
+            Musterpub (erfundener Betrieb)<br>
+            Musterstraße 12<br>
+            12345 Musterstadt
+          </address>
+          <p class="mt-4 text-stone-300">
+            Telefon: 01234 567890 <span class="text-xs text-stone-500">(Beispielnummer)</span><br>
+            E-Mail: info@example.com <span class="text-xs text-stone-500">(Beispieladresse)</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Reservierung -->
+<section id="reservieren" class="bg-pub-900 py-20 sm:py-28">
+  <div class="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-5">
+    <div class="reveal lg:col-span-2">
+      <p class="text-sm font-semibold uppercase tracking-widest text-gold-400">Reservierung</p>
+      <h2 class="mt-3 font-display text-3xl font-extrabold text-white sm:text-4xl">Tisch reservieren</h2>
+      <p class="mt-4 text-stone-400">Wähle Tag, Uhrzeit und Personenzahl. <strong class="text-gold-300">Dies ist eine Demo:</strong> Das Formular zeigt nur den Ablauf, es wird nichts gesendet oder gespeichert.</p>
+      <p class="mt-4 text-sm text-stone-500">Es stehen nur Zeiten innerhalb unserer Öffnungszeiten zur Auswahl.</p>
+    </div>
+    <form id="resForm" class="reveal rounded-2xl border border-white/10 bg-pub-800 p-6 sm:p-8 lg:col-span-3" novalidate>
+      <div class="grid gap-5 sm:grid-cols-2">
+        <div>
+          <label for="name" class="mb-1.5 block text-sm font-medium text-stone-300">Name *</label>
+          <input id="name" name="name" required maxlength="100" autocomplete="name" class="field" placeholder="Dein Name">
+        </div>
+        <div>
+          <label for="email" class="mb-1.5 block text-sm font-medium text-stone-300">E-Mail *</label>
+          <input id="email" name="email" type="email" required maxlength="200" autocomplete="email" class="field" placeholder="beliebige Beispieladresse">
+        </div>
+        <div>
+          <label for="phone" class="mb-1.5 block text-sm font-medium text-stone-300">Telefon (optional)</label>
+          <input id="phone" name="phone" type="tel" maxlength="40" autocomplete="tel" class="field" placeholder="Beispielnummer">
+        </div>
+        <div>
+          <label for="guests" class="mb-1.5 block text-sm font-medium text-stone-300">Personen *</label>
+          <input id="guests" name="guests" type="number" inputmode="numeric" min="1" max="100" value="2" required class="field">
+        </div>
+        <div>
+          <label for="date" class="mb-1.5 block text-sm font-medium text-stone-300">Datum *</label>
+          <input id="date" name="date" type="date" required class="field [color-scheme:dark]">
+        </div>
+        <div>
+          <label for="time" class="mb-1.5 block text-sm font-medium text-stone-300">Uhrzeit *</label>
+          <select id="time" name="time" required class="field" disabled><option value="">Erst Datum wählen</option></select>
+          <p id="hoursHint" class="mt-1.5 text-xs text-stone-500"></p>
+        </div>
+      </div>
+      <div class="mt-5">
+        <label for="msg" class="mb-1.5 block text-sm font-medium text-stone-300">Nachricht (optional)</label>
+        <textarea id="msg" name="msg" rows="3" maxlength="500" class="field" placeholder="z. B. Geburtstag, Sitzwunsch …"></textarea>
+      </div>
+      <div class="mt-5 flex items-start gap-3">
+        <input id="consent" name="consent" type="checkbox" required class="mt-1 h-4 w-4 shrink-0 accent-[#d4a03a]">
+        <label for="consent" class="text-sm leading-relaxed text-stone-400">
+          Ich habe verstanden, dass dies eine Demo ist und meine Angaben weder gesendet noch gespeichert werden. *
+        </label>
+      </div>
+      <button id="submitBtn" type="submit" class="mt-6 w-full rounded-full bg-gold-500 px-7 py-3.5 font-semibold text-pub-950 transition hover:bg-gold-400 sm:w-auto">Reservierung senden</button>
+      <p id="formMsg" class="mt-4 rounded-xl px-4 py-3 text-sm empty:hidden" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="border-t border-white/10 bg-pub-950 pb-20">
+  <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 text-center sm:px-6 md:flex-row md:text-left">
+    <div>
+      <p class="font-display text-xl font-extrabold text-white">Muster<span class="text-gold-400">pub</span></p>
+      <p class="mt-1 text-sm text-stone-500">Erfundener Betrieb · Musterstraße 12 · 12345 Musterstadt</p>
+    </div>
+    <p class="text-sm text-stone-500">
+      © <span id="year">2026</span> Design-Demo ·
+      <a href="hinweis.html" class="underline-offset-2 hover:text-gold-400 hover:underline">Demo-Hinweis</a>
+    </p>
+  </div>
+</footer>
+
+<!-- Dauerhafter Demo-Hinweis -->
+<div class="fixed inset-x-0 bottom-0 z-[55] border-t border-gold-500/40 bg-pub-950/95 px-4 py-2.5 text-center text-xs text-gold-300 backdrop-blur sm:text-sm" role="note">
+  <strong>Design-Demo</strong> – kein echter Betrieb, alle Angaben sind erfunden. <a href="hinweis.html" class="underline underline-offset-2 hover:text-gold-400">Mehr erfahren</a>
+</div>
+
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>

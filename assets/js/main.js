@@ -169,17 +169,41 @@
         time: timeEl.value,
         guests: parseInt($('#guests').value, 10),
         message: $('#msg').value.trim(),
+        website: $('#website').value,           // Honeypot
         consent: $('#consent').checked
       };
       if (!data.name || !data.email || !data.date || !data.time || !(data.guests >= 1)) {
         show('err', 'Bitte Name, E-Mail, Datum, Uhrzeit und Personenzahl angeben.'); return;
       }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) { show('err', 'Bitte eine gültige E-Mail-Adresse angeben.'); return; }
-      if (!data.consent) { show('err', 'Bitte bestätige den Demo-Hinweis.'); return; }
+      if (!data.consent) { show('err', 'Bitte bestätige den Hinweis zur Datenübermittlung.'); return; }
 
-      // DEMO: Es wird bewusst nichts gesendet oder gespeichert.
-      show('ok', 'Demo: Deine Eingaben wurden nicht gesendet oder gespeichert. In einer echten Version würde jetzt eine Bestätigung an ' + data.email + ' verschickt.');
-      form.reset(); fillSlots();
+      var endpoint = (window.PUB_CONFIG && window.PUB_CONFIG.RESERVE_ENDPOINT) || '';
+      if (!/^https:\/\//.test(endpoint)) {
+        show('err', 'Die Online-Reservierung ist in dieser Demo noch nicht aktiviert. Es wurde nichts gesendet.');
+        return;
+      }
+      btn.disabled = true; btn.classList.add('opacity-60');
+      show('ok', 'Anfrage wird gesendet …');
+      var ctrl = new AbortController(), timer = setTimeout(function () { ctrl.abort(); }, 15000);
+      fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+        signal: ctrl.signal
+      }).then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (b) { return { ok: r.ok, body: b }; });
+      }).then(function (res) {
+        if (res.ok && res.body && res.body.ok === true) {
+          show('ok', 'Danke, ' + data.name + '! Deine Anfrage wurde an den Betreiber der Demo übermittelt.' +
+            (res.body.confirmationSent === true ? ' Eine Bestätigung ist unterwegs an ' + data.email + '.' : ''));
+          form.reset(); fillSlots();
+        } else {
+          show('err', (res.body && res.body.error) || 'Das hat leider nicht geklappt. Es wurde nichts gesendet.');
+        }
+      }).catch(function () {
+        show('err', 'Keine Verbindung zum Reservierungsdienst. Es wurde nichts gesendet.');
+      }).then(function () { clearTimeout(timer); btn.disabled = false; btn.classList.remove('opacity-60'); });
     });
   }
 

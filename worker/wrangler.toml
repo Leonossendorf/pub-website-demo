@@ -1,0 +1,12 @@
+# Cloudflare-Worker für das Reservierungsformular der Demo.
+# Geheimnisse NICHT hier eintragen, sondern per `wrangler secret put` setzen:
+#   wrangler secret put RESEND_API_KEY
+#   wrangler secret put MAIL_TO
+name = "musterpub-reserve"
+main = "reserve.mjs"
+compatibility_date = "2026-10-01"
+
+[vars]
+MAIL_FROM = "Musterpub Demo <musterpub@leonossendorf.de>"
+ALLOWED_ORIGINS = "https://musterpub.leonossendorf.de"
+CONFIRM_GUEST = "false"
